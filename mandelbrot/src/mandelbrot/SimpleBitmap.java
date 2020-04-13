@@ -1,14 +1,16 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package mandelbrot;
+
+import javax.swing.JPanel;
 
 /**
  *
  * @author bj.brassard
  */
-public class SimpleBitmap {
+public class SimpleBitmap extends JPanel{
     
-}
+    private static final int MAP_WIDTH = 512;
+    private static final int MAP_HEIGHT = 512;
+    
+    
+} // SimpleBitmap
