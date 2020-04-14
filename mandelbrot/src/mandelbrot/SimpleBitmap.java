@@ -40,20 +40,49 @@ public class SimpleBitmap extends JPanel {
 
         WritableRaster raster = this.image.getRaster();
 
-        int[] black = {0, 0, 0};
-        int[] yellow = {255, 255, 0};
-
-        for (int j = 0; j < h; j++) {
-            for (int i = 0; i < w; i++) {
-                if (i < j) {
-                    raster.setPixel(i, j, yellow);
+        int[] b1 = {0, 0, 150};
+        int[] b2 = {0, 0, 250};
+        
+        double xMin = 0;
+        double xMax = MAP_WIDTH - 1;
+        double yMin = 0;
+        double yMax = MAP_HEIGHT - 1;
+        
+        double uMin = -2.0;
+        double uMax = 2.0;
+        double vMin = -2.0;
+        double vMax = 2.0;
+        
+        for(int row = 0; row < MAP_HEIGHT; row++){
+            double y = row;
+            for(int column = 0; column < MAP_WIDTH; column++){
+                double x = column;
+                
+                double u = uMin +(uMax - uMin) * (x - xMin)/(xMax - xMin);
+                double v = vMin +(vMax - vMin) * (y - yMin)/(yMax - yMin);
+                
+                Complex c0 = new Complex(0.0, 0.0);
+                Complex c1 = new Complex(u, v);
+                
+                int count = 0;
+                
+                while(c0.magnitudeSquared() < 4.0 && count < 64){
+                    c0 = c0.prod(c0);
+                    c0 = c0.add(c1);
+                    count++;
+                    
+                } // while
+                
+                if(count == 64){
+                    raster.setPixel(row, column, b2);
                 } // if
                 else {
-                    raster.setPixel(i, j, black);
+                    raster.setPixel(row, column, b1);
                 } // else
             } // for
         } // for
-        g2d.drawImage(image,scale, this);
+        g2d.drawImage(image, scale, this);
+
     } // paintComponent(Graphics)
 
 } // SimpleBitmap
