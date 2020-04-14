@@ -33,4 +33,7 @@ public class Complex {
                 x*w.imag() + y*w.real());
     } // prod(Complex w)
     
+    public double magnitudeSquared(){
+        return (this.real() * this.real()) + (this.imag() * this.imag());
+    }
 } // Complex
